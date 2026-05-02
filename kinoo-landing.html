@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#4A0A12" />
+<meta name="description" content="KINOO — Le sur-mesure événementiel. Mariages, baptêmes, anniversaires. Composez le moment dont vos invités parleront longtemps." />
+<title>KINOO — Le sur-mesure événementiel</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<link rel="preload" as="image" href="01-hero-bg.png" />
+
+<style>
+/* ================================================================
+   TOKENS
+   ================================================================ */
+:root {
+  --bordeaux-900: #4A0A12;
+  --bordeaux-800: #6B0F1A;
+  --bordeaux-700: #8B1424;
+  --bordeaux-200: #E8C4B8;
+  --bordeaux-100: #F5E6E0;
+
+  --cream-base: #FAF7F4;
+  --cream-pure: #FFFDFB;
+  --cream-warm: #F2EBE3;
+
+  --ink-900: #1A0A0D;
+  --ink-600: #6B5A5E;
+  --ink-400: #A89699;
+
+  --bg-page: var(--cream-base);
+  --text-primary: var(--ink-900);
+  --text-secondary: var(--ink-600);
+  --text-tertiary: var(--ink-400);
+  --accent: var(--bordeaux-800);
+
+  --r-sm: 18px;
+  --r-md: 26px;
+  --r-lg: 34px;
+  --r-full: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(74, 10, 18, 0.04), 0 2px 8px rgba(74, 10, 18, 0.04);
+  --shadow-md: 0 4px 16px rgba(74, 10, 18, 0.06), 0 12px 32px rgba(74, 10, 18, 0.04);
+  --shadow-lg: 0 12px 40px rgba(74, 10, 18, 0.10), 0 24px 64px rgba(74, 10, 18, 0.06);
+  --shadow-cta: 0 8px 24px rgba(107, 15, 26, 0.28), 0 2px 6px rgba(107, 15, 26, 0.18);
+  --shadow-mobile-bar: 0 -8px 32px rgba(26, 10, 13, 0.5);
+
+  --font-display: 'Geist', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ================================================================
+   RESET — mobile-first base
+   ================================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  font-family: var(--font-body);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-weight: 400;
+  line-height: 1.55;
+  font-size: 16px;
+  overflow-x: hidden;
+  /* Espace sous le contenu pour la barre CTA mobile */
+  padding-bottom: 0;
+}
+img, picture, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+:focus-visible { outline: 2px solid var(--bordeaux-700); outline-offset: 3px; border-radius: 4px; }
+
+/* ================================================================
+   LAYOUT — mobile padding tight, desktop spacious
+   ================================================================ */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+@media (min-width: 768px) { .container { padding: 0 32px; } }
+@media (min-width: 1024px) { .container { padding: 0 48px; } }
+
+.section { padding: 72px 0; }
+@media (min-width: 768px) { .section { padding: 96px 0; } }
+@media (min-width: 1024px) { .section { padding: 140px 0; } }
+
+/* ================================================================
+   NAVIGATION
+   ================================================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s var(--ease-out);
+  padding-top: max(16px, env(safe-area-inset-top));
+}
+.nav.scrolled {
+  background: rgba(250, 247, 244, 0.85);
+  backdrop-filter: blur(24px) saturate(140%);
+  -webkit-backdrop-filter: blur(24px) saturate(140%);
+  border-bottom: 1px solid rgba(74, 10, 18, 0.06);
+  padding: 12px 20px;
+  padding-top: max(12px, env(safe-area-inset-top));
+}
+@media (min-width: 768px) {
+  .nav { padding: 20px 32px; }
+  .nav.scrolled { padding: 14px 32px; }
+}
+@media (min-width: 1024px) {
+  .nav { padding: 28px 48px; }
+  .nav.scrolled { padding: 16px 48px; }
+}
+.nav__logo {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.16em;
+  color: var(--cream-pure);
+  transition: color 0.4s var(--ease-out);
+}
+@media (min-width: 768px) { .nav__logo { font-size: 20px; } }
+.nav.scrolled .nav__logo { color: var(--ink-900); }
+
+.nav__right { display: flex; align-items: center; gap: 16px; }
+@media (min-width: 768px) { .nav__right { gap: 24px; } }
+
+.nav__link {
+  display: none;
+  font-size: 14px; font-weight: 500;
+  color: rgba(255, 253, 251, 0.85);
+  letter-spacing: 0.01em;
+  transition: color 0.3s var(--ease-out);
+}
+@media (min-width: 768px) { .nav__link { display: inline-flex; } }
+.nav.scrolled .nav__link { color: var(--ink-600); }
+.nav__link:hover { color: var(--cream-pure); }
+.nav.scrolled .nav__link:hover { color: var(--ink-900); }
+
+/* ================================================================
+   BUTTONS
+   ================================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.005em;
+  border-radius: var(--r-full);
+  transition: all 0.4s var(--ease-out);
+  white-space: nowrap;
+  cursor: pointer;
+  /* Touch target min 44px */
+  min-height: 44px;
+}
+.btn--primary {
+  background: var(--bordeaux-800);
+  color: var(--cream-pure);
+  padding: 14px 24px;
+  box-shadow: var(--shadow-cta);
+}
+.btn--primary:hover, .btn--primary:active {
+  background: var(--bordeaux-900);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(107, 15, 26, 0.36), 0 4px 8px rgba(107, 15, 26, 0.20);
+}
+@media (min-width: 768px) {
+  .btn--primary { padding: 16px 28px; }
+}
+.btn--primary--lg {
+  padding: 16px 28px;
+  font-size: 15px;
+}
+@media (min-width: 768px) {
+  .btn--primary--lg { padding: 20px 36px; font-size: 16px; }
+}
+.btn--cream {
+  background: var(--cream-pure);
+  color: var(--bordeaux-900);
+  padding: 18px 32px;
+  font-size: 15px;
+}
+.btn--cream:hover { background: var(--cream-base); transform: translateY(-1px); }
+@media (min-width: 768px) {
+  .btn--cream { padding: 20px 36px; font-size: 16px; }
+}
+.btn--pill-nav {
+  padding: 10px 16px;
+  font-size: 13px;
+  background: var(--bordeaux-800);
+  color: var(--cream-pure);
+  min-height: 40px;
+}
+@media (min-width: 768px) {
+  .btn--pill-nav { padding: 11px 20px; font-size: 14px; }
+}
+.btn--pill-nav:hover, .btn--pill-nav:active { background: var(--bordeaux-900); }
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--cream-pure);
+  border-bottom: 1px solid rgba(255, 253, 251, 0.4);
+  padding: 8px 0;
+  transition: all 0.3s var(--ease-out);
+}
+.text-link:hover { color: var(--bordeaux-200); border-bottom-color: var(--bordeaux-200); }
+
+/* Bloc CTA inline réutilisable (fin de section) */
+.section-cta {
+  text-align: center;
+  margin-top: 48px;
+  padding: 0 4px;
+}
+@media (min-width: 768px) { .section-cta { margin-top: 64px; } }
+.section-cta__lead {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: var(--ink-900);
+  margin-bottom: 20px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 768px) {
+  .section-cta__lead { font-size: 22px; margin-bottom: 24px; }
+}
+@media (min-width: 1024px) {
+  .section-cta__lead { font-size: 26px; }
+}
+.section-cta__lead em {
+  font-style: italic;
+  color: var(--bordeaux-800);
+}
+.section-cta__sub {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* ================================================================
+   HERO
+   ================================================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-color: var(--bordeaux-900);
+  background-image: url('01-hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(74, 10, 18, 0.55) 0%,
+    rgba(74, 10, 18, 0.25) 40%,
+    rgba(74, 10, 18, 0.78) 100%
+  );
+}
+
+.hero__content {
+  max-width: 880px;
+  padding: 0 20px;
+  z-index: 1;
+  animation: heroFadeIn 1.4s var(--ease-out) both;
+}
+.hero__kicker {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--bordeaux-200);
+  letter-spacing: 0.02em;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: heroFadeIn 1.2s var(--ease-out) 0.2s forwards;
+}
+@media (min-width: 768px) {
+  .hero__kicker { font-size: 16px; margin-bottom: 28px; }
+}
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(36px, 9vw, 88px);
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--cream-pure);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: heroFadeIn 1.4s var(--ease-out) 0.35s forwards;
+  text-shadow: 0 2px 24px rgba(26, 10, 13, 0.4);
+}
+@media (min-width: 768px) {
+  .hero__title { margin-bottom: 32px; }
+}
+.hero__title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--bordeaux-200);
+}
+.hero__subtitle {
+  font-size: 15px;
+  color: rgba(255, 253, 251, 0.85);
+  margin-bottom: 36px;
+  letter-spacing: 0.005em;
+  font-weight: 400;
+  opacity: 0;
+  animation: heroFadeIn 1.4s var(--ease-out) 0.5s forwards;
+  text-shadow: 0 1px 12px rgba(26, 10, 13, 0.5);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.5;
+}
+@media (min-width: 768px) {
+  .hero__subtitle {
+    font-size: clamp(15px, 1.4vw, 18px);
+    margin-bottom: 48px;
+  }
+}
+.hero__ctas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  opacity: 0;
+  animation: heroFadeIn 1.4s var(--ease-out) 0.65s forwards;
+}
+@media (min-width: 640px) {
+  .hero__ctas { flex-direction: row; justify-content: center; gap: 32px; }
+}
+
+.hero__scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: rgba(255, 253, 251, 0.55);
+  opacity: 0;
+  animation: heroFadeIn 1s var(--ease-out) 1.2s forwards, scrollPulse 2.4s ease-in-out 2s infinite;
+  pointer-events: none;
+}
+@media (min-width: 768px) {
+  .hero__scroll-hint { bottom: 36px; font-size: 11px; }
+}
+.hero__scroll-hint::before {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 28px;
+  background: linear-gradient(180deg, transparent, rgba(255, 253, 251, 0.5));
+  margin-bottom: 12px;
+}
+@media (min-width: 768px) {
+  .hero__scroll-hint::before { height: 36px; margin-bottom: 16px; }
+}
+.hero__scroll-hint span {
+  letter-spacing: 0.2em;
+  /* Compense le trailing letter-spacing du dernier caractère pour un centrage parfait */
+  padding-left: 0.2em;
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 0.9; }
+}
+
+/* ================================================================
+   HERO MOBILE — bascule sur l'image dédiée mobile (sujet en bas)
+   Le contenu (titre, CTAs) reste affiché par-dessus, exactement
+   comme sur desktop, mais avec une image pensée pour le vertical.
+   ================================================================ */
+@media (max-width: 767px) {
+  .hero__bg {
+    background-image: url('01-hero-bg-mobile.png');
+    background-position: center bottom;
+  }
+
+  /* L'overlay reste mais ajusté pour assombrir surtout le haut/milieu
+     où le texte se trouve, sans noyer le sujet en bas */
+  .hero__overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(74, 10, 18, 0.50) 0%,
+      rgba(74, 10, 18, 0.20) 50%,
+      rgba(74, 10, 18, 0.55) 100%
+    );
+  }
+
+  /* Pousser légèrement le contenu vers le haut pour libérer la zone
+     basse occupée par la serviette/lavande/couteau */
+  .hero {
+    justify-content: flex-start;
+    padding-top: 120px;
+  }
+
+  .hero__content {
+    margin-bottom: auto;
+  }
+}
+
+/* ================================================================
+   IMAGES
+   ================================================================ */
+.img-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ================================================================
+   TRANSFORMATION
+   ================================================================ */
+.transformation { background: var(--cream-base); position: relative; }
+.transformation::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 200px;
+  background: radial-gradient(ellipse 60% 100% at 50% 0%, var(--bordeaux-100), transparent 70%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.section__intro {
+  max-width: 720px;
+  margin: 0 auto 56px;
+  text-align: center;
+  position: relative;
+}
+@media (min-width: 768px) { .section__intro { margin-bottom: 80px; } }
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--bordeaux-800);
+  margin-bottom: 18px;
+}
+@media (min-width: 768px) { .eyebrow { font-size: 11px; margin-bottom: 24px; } }
+
+.section__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(28px, 6vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink-900);
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) { .section__title { margin-bottom: 24px; } }
+.section__title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--bordeaux-800);
+}
+.section__lead {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 560px;
+  margin: 0 auto;
+}
+@media (min-width: 768px) { .section__lead { font-size: 18px; line-height: 1.55; } }
+
+.pillars {
+  display: grid;
+  gap: 48px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1024px) {
+  .pillars { grid-template-columns: repeat(3, 1fr); gap: 48px; }
+}
+
+.pillar { display: flex; flex-direction: column; gap: 24px; }
+@media (min-width: 768px) { .pillar { gap: 28px; } }
+
+.pillar__image {
+  aspect-ratio: 1 / 1;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, var(--bordeaux-100), var(--cream-warm));
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+.pillar__image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, transparent 60%, rgba(74, 10, 18, 0.06));
+  pointer-events: none;
+  z-index: 1;
+}
+.pillar__index {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--bordeaux-800);
+  margin-bottom: 8px;
+}
+@media (min-width: 768px) { .pillar__index { font-size: 12px; } }
+.pillar__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--ink-900);
+  margin-bottom: 10px;
+}
+@media (min-width: 768px) { .pillar__title { font-size: 24px; } }
+.pillar__text {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+/* ================================================================
+   SIGNATURE
+   ================================================================ */
+.signature { background: var(--cream-pure); position: relative; overflow: hidden; }
+.signature::before {
+  content: '';
+  position: absolute;
+  top: 50%; right: -200px;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--bordeaux-100), transparent 65%);
+  transform: translateY(-50%);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  align-items: center;
+  position: relative;
+}
+@media (min-width: 1024px) {
+  .split { grid-template-columns: 1fr 1fr; gap: 96px; }
+}
+
+.split__content { max-width: 520px; }
+.split__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(28px, 5.5vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--ink-900);
+  margin-bottom: 24px;
+}
+@media (min-width: 768px) { .split__title { margin-bottom: 28px; } }
+.split__title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--bordeaux-800);
+}
+.split__text {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+@media (min-width: 768px) { .split__text { font-size: 17px; margin-bottom: 36px; } }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+@media (min-width: 768px) { .chips { gap: 10px; } }
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  border-radius: var(--r-full);
+  background: var(--cream-warm);
+  border: 1px solid rgba(74, 10, 18, 0.08);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-900);
+  letter-spacing: 0.005em;
+  transition: all 0.4s var(--ease-out);
+  opacity: 0;
+  transform: translateY(8px);
+}
+@media (min-width: 768px) { .chip { padding: 10px 18px; font-size: 14px; } }
+.chip.is-visible { opacity: 1; transform: translateY(0); }
+.chip:hover, .chip:active {
+  background: var(--bordeaux-800);
+  color: var(--cream-pure);
+  border-color: var(--bordeaux-800);
+  transform: translateY(-2px);
+}
+
+.split__visual {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-lg);
+  background: linear-gradient(135deg, var(--bordeaux-100), var(--cream-warm));
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+.split__visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, transparent 50%, rgba(74, 10, 18, 0.08));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ================================================================
+   GALERIE
+   ================================================================ */
+.gallery {
+  background: var(--cream-base);
+  padding: 80px 0;
+  overflow: hidden;
+}
+@media (min-width: 768px) { .gallery { padding: 100px 0; } }
+@media (min-width: 1024px) { .gallery { padding: 120px 0; } }
+
+.gallery__intro {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  text-align: center;
+  padding: 0 20px;
+}
+@media (min-width: 768px) { .gallery__intro { margin-bottom: 64px; } }
+
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding: 0 10px;
+}
+@media (min-width: 768px) {
+  .gallery__grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 220px;
+    gap: 16px;
+    padding: 0 24px;
+  }
+}
+@media (min-width: 1280px) {
+  .gallery__grid {
+    grid-auto-rows: 260px;
+    gap: 20px;
+    padding: 0 32px;
+  }
+}
+
+.gallery__item {
+  position: relative;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--bordeaux-100), var(--cream-warm));
+  cursor: pointer;
+  margin: 0;
+}
+@media (min-width: 768px) { .gallery__item { border-radius: var(--r-md); } }
+
+.gallery__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.7s var(--ease-out);
+}
+.gallery__item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 45%, rgba(26, 10, 13, 0.78));
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+  z-index: 1;
+}
+.gallery__item:hover .gallery__img,
+.gallery__item:active .gallery__img { transform: scale(1.05); }
+.gallery__item:hover::before,
+.gallery__item:active::before { opacity: 1; }
+
+/* Sur mobile, captions toujours visibles en mode subtil */
+@media (max-width: 767px) {
+  .gallery__item::before {
+    opacity: 1;
+    background: linear-gradient(180deg, transparent 55%, rgba(26, 10, 13, 0.65));
+  }
+}
+
+.gallery__caption {
+  position: absolute;
+  bottom: 14px; left: 14px; right: 14px;
+  z-index: 2;
+  color: var(--cream-pure);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.5s var(--ease-out);
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .gallery__caption { bottom: 24px; left: 24px; right: 24px; }
+}
+.gallery__item:hover .gallery__caption,
+.gallery__item:active .gallery__caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Mobile : caption visible directement, version compacte */
+@media (max-width: 767px) {
+  .gallery__caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .gallery__caption-title { font-size: 13px !important; line-height: 1.25; }
+  .gallery__caption-meta { font-size: 11px !important; }
+}
+
+.gallery__caption-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+@media (min-width: 768px) { .gallery__caption-title { font-size: 18px; } }
+.gallery__caption-meta {
+  font-size: 12px;
+  color: rgba(255, 253, 251, 0.85);
+  letter-spacing: 0.01em;
+}
+@media (min-width: 768px) { .gallery__caption-meta { font-size: 13px; } }
+
+.gallery__item--1 { grid-column: span 2; grid-row: span 2; aspect-ratio: 16 / 10; }
+.gallery__item--2 { grid-column: span 1; grid-row: span 1; aspect-ratio: 1 / 1; }
+.gallery__item--3 { grid-column: span 1; grid-row: span 2; aspect-ratio: 4 / 5; }
+.gallery__item--4 { grid-column: span 2; grid-row: span 1; aspect-ratio: 3 / 2; }
+.gallery__item--5 { grid-column: span 1; grid-row: span 1; aspect-ratio: 1 / 1; }
+.gallery__item--6 { grid-column: span 1; grid-row: span 1; aspect-ratio: 1 / 1; }
+
+@media (min-width: 768px) {
+  .gallery__item--1, .gallery__item--2, .gallery__item--3,
+  .gallery__item--4, .gallery__item--5, .gallery__item--6 { aspect-ratio: auto; }
+  .gallery__item--6 { grid-column: span 2; grid-row: span 1; }
+}
+
+/* ================================================================
+   PROCESSUS
+   ================================================================ */
+.process { background: var(--cream-pure); position: relative; }
+
+.steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 48px;
+}
+@media (min-width: 768px) { .steps { gap: 24px; margin-top: 64px; } }
+@media (min-width: 1024px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 72px; } }
+
+.step {
+  background: var(--cream-base);
+  border-radius: var(--r-md);
+  padding: 32px 28px 36px;
+  border: 1px solid rgba(74, 10, 18, 0.05);
+  transition: all 0.5s var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+@media (min-width: 768px) {
+  .step { border-radius: var(--r-lg); padding: 40px 36px 44px; }
+}
+.step::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--bordeaux-200), transparent);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+}
+.step:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(74, 10, 18, 0.10);
+}
+.step:hover::before { opacity: 1; }
+
+.step__number {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--bordeaux-700);
+  margin-bottom: 22px;
+}
+@media (min-width: 768px) { .step__number { font-size: 13px; margin-bottom: 28px; } }
+
+.step__icon {
+  width: 44px; height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bordeaux-100);
+  border-radius: var(--r-sm);
+  margin-bottom: 20px;
+  color: var(--bordeaux-800);
+  transition: all 0.4s var(--ease-out);
+}
+@media (min-width: 768px) {
+  .step__icon { width: 48px; height: 48px; margin-bottom: 24px; }
+}
+.step:hover .step__icon { background: var(--bordeaux-800); color: var(--cream-pure); }
+.step__icon svg { width: 20px; height: 20px; stroke-width: 1.5; }
+@media (min-width: 768px) { .step__icon svg { width: 22px; height: 22px; } }
+
+.step__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--ink-900);
+  margin-bottom: 10px;
+}
+@media (min-width: 768px) { .step__title { font-size: 22px; margin-bottom: 12px; } }
+
+.step__text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.step__note {
+  display: block;
+  margin-top: 40px;
+  font-size: 13px;
+  text-align: center;
+  color: var(--text-tertiary);
+  font-style: italic;
+  letter-spacing: 0.005em;
+  padding: 0 16px;
+}
+@media (min-width: 768px) { .step__note { margin-top: 56px; } }
+
+/* ================================================================
+   CTA FINAL
+   ================================================================ */
+.cta-final {
+  background: var(--bordeaux-900);
+  color: var(--cream-pure);
+  padding: 96px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+@media (min-width: 768px) { .cta-final { padding: 120px 32px; } }
+@media (min-width: 1024px) { .cta-final { padding: 140px 24px; } }
+
+.cta-final::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(139, 20, 36, 0.55), transparent 60%),
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(74, 10, 18, 0.8), transparent 70%);
+}
+.cta-final::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at 50% 30%, rgba(232, 196, 184, 0.08), transparent 50%);
+  opacity: 0.6;
+}
+
+.cta-final__inner {
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+.cta-final__title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(30px, 7vw, 64px);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) { .cta-final__title { margin-bottom: 24px; } }
+.cta-final__title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--bordeaux-200);
+}
+.cta-final__sub {
+  font-size: 16px;
+  color: rgba(255, 253, 251, 0.78);
+  margin-bottom: 36px;
+  letter-spacing: 0.005em;
+  line-height: 1.5;
+}
+@media (min-width: 768px) { .cta-final__sub { font-size: 17px; margin-bottom: 48px; } }
+
+.cta-final__note {
+  display: block;
+  margin-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232, 196, 184, 0.75);
+}
+@media (min-width: 768px) { .cta-final__note { font-size: 11px; margin-top: 24px; } }
+
+/* ================================================================
+   FOOTER
+   ================================================================ */
+.footer {
+  background: var(--cream-warm);
+  padding: 56px 20px 32px;
+  color: var(--text-secondary);
+}
+@media (min-width: 768px) { .footer { padding: 80px 32px 40px; } }
+
+.footer__grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 36px;
+}
+@media (min-width: 768px) {
+  .footer__grid { grid-template-columns: 1.5fr 1fr 1fr; gap: 64px; }
+}
+.footer__brand {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 22px;
+  letter-spacing: 0.18em;
+  color: var(--ink-900);
+  margin-bottom: 14px;
+}
+@media (min-width: 768px) { .footer__brand { font-size: 24px; margin-bottom: 16px; } }
+
+.footer__baseline {
+  max-width: 360px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.footer__heading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+}
+@media (min-width: 768px) { .footer__heading { margin-bottom: 20px; } }
+
+.footer__links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+@media (min-width: 768px) { .footer__links { gap: 12px; } }
+
+.footer__link {
+  font-size: 14px;
+  color: var(--ink-900);
+  transition: color 0.3s var(--ease-out);
+  display: inline-block;
+  padding: 4px 0;
+}
+.footer__link:hover, .footer__link:active { color: var(--bordeaux-800); }
+.footer__link--discreet { color: var(--text-secondary); font-size: 13px; }
+
+.footer__contact {
+  font-size: 14px;
+  color: var(--ink-900);
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+  transition: color 0.3s var(--ease-out);
+}
+.footer__contact:hover, .footer__contact:active { color: var(--bordeaux-800); }
+
+.footer__bottom {
+  max-width: 1280px;
+  margin: 40px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid rgba(74, 10, 18, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+@media (min-width: 768px) {
+  .footer__bottom { margin-top: 56px; padding-top: 32px; font-size: 11px; gap: 16px; }
+}
+
+/* ================================================================
+   STICKY MOBILE CTA BAR
+   ================================================================ */
+.mobile-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  background: rgba(74, 10, 18, 0.94);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border-top: 1px solid rgba(232, 196, 184, 0.18);
+  padding: 12px 16px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-shadow: var(--shadow-mobile-bar);
+  transform: translateY(110%);
+  transition: transform 0.5s var(--ease-out);
+}
+.mobile-cta.is-visible { transform: translateY(0); }
+
+.mobile-cta__text {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--bordeaux-200);
+  letter-spacing: 0.005em;
+}
+.mobile-cta__text strong {
+  display: block;
+  color: var(--cream-pure);
+  font-weight: 500;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+
+.mobile-cta__btn {
+  flex-shrink: 0;
+  background: var(--cream-pure);
+  color: var(--bordeaux-900);
+  padding: 12px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--r-full);
+  white-space: nowrap;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s var(--ease-out);
+}
+.mobile-cta__btn:active { transform: scale(0.97); background: var(--cream-base); }
+
+@media (min-width: 768px) {
+  .mobile-cta { display: none; }
+}
+
+/* Compense la hauteur de la barre mobile pour que le footer ne soit pas masqué */
+@media (max-width: 767px) {
+  body.has-mobile-cta { padding-bottom: 72px; }
+}
+
+/* ================================================================
+   REVEAL
+   ================================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav" aria-label="Navigation principale">
+  <a href="#" class="nav__logo" aria-label="KINOO accueil">KINOO</a>
+  <div class="nav__right">
+    <a href="https://kinoo-traiteur.vercel.app/catalogue" class="nav__link">Catalogue</a>
+    <a href="https://kinoo-traiteur.vercel.app/sur-mesure" class="btn btn--pill-nav">Demander un devis</a>
+  </div>
+</nav>
+
+<!-- 1. HERO -->
+<header class="hero" role="banner">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__overlay" aria-hidden="true"></div>
+
+  <div class="hero__content">
+    <span class="hero__kicker">Le sur-mesure événementiel</span>
+    <h1 class="hero__title">
+      L'événement dont vos invités<br>parleront <em>longtemps</em>
+    </h1>
+    <p class="hero__subtitle">
+      Un repas devient un moment. Un moment devient un souvenir.
+    </p>
+    <div class="hero__ctas">
+      <a href="https://kinoo-traiteur.vercel.app/sur-mesure" class="btn btn--primary btn--primary--lg">
+        Composer mon menu sur-mesure
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+      </a>
+      <a href="https://kinoo-traiteur.vercel.app/catalogue" class="text-link">ou découvrir le catalogue</a>
+    </div>
+  </div>
+
+  <div class="hero__scroll-hint"><span>Faites défiler</span></div>
+</header>
+
+<!-- 2. TRANSFORMATION -->
+<section class="section transformation">
+  <div class="container">
+    <div class="section__intro reveal">
+      <span class="eyebrow">Ce que KINOO change</span>
+      <h2 class="section__title">
+        Un repas devient <em>un souvenir</em>.<br>
+        Et un souvenir, ça se compose.
+      </h2>
+      <p class="section__lead">
+        On ne vous parle pas de produits frais ni d'années d'expérience. On vous parle du moment que vivront vos invités quand le silence s'installera à la première bouchée.
+      </p>
+    </div>
+
+    <div class="pillars">
+      <article class="pillar reveal">
+        <div class="pillar__image">
+          <img src="02-pilier-attente.png" alt="Mains de cheffe plaçant calmement un dressage" class="img-cover" loading="lazy" />
+        </div>
+        <div>
+          <div class="pillar__index">01</div>
+          <h3 class="pillar__title">L'attente du jour J disparaît</h3>
+          <p class="pillar__text">
+            Vous avez préparé l'événement pendant des mois. Le jour venu, vous voulez le vivre — pas le surveiller. On orchestre, vous profitez.
+          </p>
+        </div>
+      </article>
+
+      <article class="pillar reveal">
+        <div class="pillar__image">
+          <img src="03-pilier-saveurs.png" alt="Plat composé en macro, dressage signature" class="img-cover" loading="lazy" />
+        </div>
+        <div>
+          <div class="pillar__index">02</div>
+          <h3 class="pillar__title">Les saveurs racontent une histoire</h3>
+          <p class="pillar__text">
+            Chaque plat est une intention. Chaque dressage, une émotion choisie. Rien n'est là par hasard, et vos invités le sentent.
+          </p>
+        </div>
+      </article>
+
+      <article class="pillar reveal">
+        <div class="pillar__image">
+          <img src="04-pilier-silence.png" alt="Moment suspendu de la première bouchée" class="img-cover" loading="lazy" />
+        </div>
+        <div>
+          <div class="pillar__index">03</div>
+          <h3 class="pillar__title">Le silence à la première bouchée</h3>
+          <p class="pillar__text">
+            Ce moment où une table de quarante personnes s'arrête de parler en même temps. Ce moment-là, c'est ce qu'ils retiendront.
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <!-- CTA inline #1 -->
+    <div class="section-cta reveal">
+      <p class="section-cta__lead">Ce souvenir-là, on peut le <em>composer</em> pour vous.</p>
+      <a href="https://kinoo-traiteur.vercel.app/sur-mesure" class="btn btn--primary">
+        Composer mon menu
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 3. SIGNATURE -->
+<section class="section signature">
+  <div class="container">
+    <div class="split">
+      <div class="split__content reveal">
+        <span class="eyebrow">Notre signature</span>
+        <h2 class="split__title">
+          Une cuisine qui se <em>souvient</em><br>
+          d'où elle vient,<br>
+          et qui sait où elle va.
+        </h2>
+        <p class="split__text">
+          Une cuisine d'auteur, ancrée dans une mémoire, et taillée pour les tables d'aujourd'hui. On compose pour des événements précis, des invités précis, des moments précis. Rien n'est jamais dupliqué.
+        </p>
+        <div class="chips" id="chips">
+          <span class="chip">Mariages</span>
+          <span class="chip">Baptêmes</span>
+          <span class="chip">Anniversaires</span>
+          <span class="chip">Réceptions privées</span>
+        </div>
+        <a href="https://kinoo-traiteur.vercel.app/sur-mesure" class="btn btn--primary">
+          Demander mon devis
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="split__visual reveal">
+        <img src="05-signature.png" alt="Plat signature KINOO en cinématique" class="img-cover" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. GALERIE -->
+<section class="gallery">
+  <div class="gallery__intro reveal">
+    <span class="eyebrow">Quelques moments</span>
+    <h2 class="section__title">
+      Ce qu'<em>ils</em> ont vécu.
+    </h2>
+  </div>
+
+  <div class="gallery__grid">
+    <figure class="gallery__item gallery__item--1">
+      <img src="06-galerie-mariage-lyon.png" alt="Mariage à Lyon, 80 invités" class="gallery__img" loading="lazy" />
+      <figcaption class="gallery__caption">
+        <div class="gallery__caption-title">Le silence est tombé d'un coup</div>
+        <div class="gallery__caption-meta">Mariage · Lyon · 80 invités</div>
+      </figcaption>
+    </figure>
+
+    <figure class="gallery__item gallery__item--2">
+      <img src="07-galerie-bapteme-paris.png" alt="Baptême à Paris, 25 personnes" class="gallery__img" loading="lazy" />
+      <figcaption class="gallery__caption">
+        <div class="gallery__caption-title">Le détail qu'ils ont remarqué</div>
+        <div class="gallery__caption-meta">Baptême · Paris · 25 personnes</div>
+      </figcaption>
+    </figure>
+
+    <figure class="gallery__item gallery__item--3">
+      <img src="08-galerie-anniversaire.png" alt="Anniversaire 40 ans, 60 invités" class="gallery__img" loading="lazy" />
+      <figcaption class="gallery__caption">
+        <div class="gallery__caption-title">Quarante ans, un seul soir</div>
+        <div class="gallery__caption-meta">Anniversaire · 60 invités</div>
+      </figcaption>
+    </figure>
+
+    <figure class="gallery__item gallery__item--4">
+      <img src="09-galerie-mariage-provence.png" alt="Mariage en Provence, 180 invités" class="gallery__img" loading="lazy" />
+      <figcaption class="gallery__caption">
+        <div class="gallery__caption-title">Deux mondes, une seule table</div>
+        <div class="gallery__caption-meta">Mariage · Provence · 180 invités</div>
+      </figcaption>
+    </figure>
+
+    <figure class="gallery__item gallery__item--5">
+      <img src="10-galerie-dressage.png" alt="Détail d'un dressage signature" class="gallery__img" loading="lazy" />
+      <figcaption class="gallery__caption">
+        <div class="gallery__caption-title">Un détail, mille fois pensé</div>
+        <div class="gallery__caption-meta">Dressage signature</div>
+      </figcaption>
+    </figure>
+
+    <figure class="gallery__item gallery__item--6">
+      <img src="11-galerie-reception-pro.png" alt="Réception professionnelle, 200 invités" class="gallery__img" loading="lazy" />
+      <figcaption class="gallery__caption">
+        <div class="gallery__caption-title">Quand une entreprise se souvient d'elle-même</div>
+        <div class="gallery__caption-meta">Réception pro · 200 invités</div>
+      </figcaption>
+    </figure>
+  </div>
+
+  <!-- CTA inline #3 -->
+  <div class="section-cta reveal" style="margin-top: 64px; padding: 0 20px;">
+    <p class="section-cta__lead">Et si <em>le prochain</em> était le vôtre ?</p>
+    <a href="https://kinoo-traiteur.vercel.app/sur-mesure" class="btn btn--primary btn--primary--lg">
+      Composer mon menu sur-mesure
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+    </a>
+    <span class="section-cta__sub">Réponse en moins de 24h · Sans engagement</span>
+  </div>
+</section>
+
+<!-- 5. PROCESSUS -->
+<section class="section process">
+  <div class="container">
+    <div class="section__intro reveal">
+      <span class="eyebrow">Le sur-mesure en 3 temps</span>
+      <h2 class="section__title">
+        Simple à <em>commencer</em>.<br>
+        Précis à finir.
+      </h2>
+      <p class="section__lead">
+        On vous écoute, on vous appelle, on orchestre. Aucun engagement avant que vous validiez le devis.
+      </p>
+    </div>
+
+    <div class="steps">
+      <article class="step reveal">
+        <div class="step__number">01 / Vous nous racontez</div>
+        <div class="step__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 21h8"/><path d="M14.5 6.5l4 4"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25Z"/></svg>
+        </div>
+        <h3 class="step__title">Vous nous racontez</h3>
+        <p class="step__text">
+          Trois minutes, un formulaire. Le type d'événement, le nombre d'invités, l'ambiance que vous voulez. C'est tout.
+        </p>
+      </article>
+
+      <article class="step reveal">
+        <div class="step__number">02 / Nous vous appelons</div>
+        <div class="step__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.05 2a9 9 0 0 1 8 7.94"/><path d="M14.05 6A5 5 0 0 1 18 10"/><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+        </div>
+        <h3 class="step__title">Nous vous appelons</h3>
+        <p class="step__text">
+          Un échange humain pour affiner. On creuse l'ambiance, le rythme du repas, les détails que vous n'aviez pas pensé à nous dire.
+        </p>
+      </article>
+
+      <article class="step reveal">
+        <div class="step__number">03 / Nous orchestrons</div>
+        <div class="step__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2L12 3z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+        </div>
+        <h3 class="step__title">Nous orchestrons votre événement</h3>
+        <p class="step__text">
+          Vous accueillez vos invités. Nous nous occupons de tout le reste. Et le silence tombe à la première bouchée.
+        </p>
+      </article>
+    </div>
+
+    <em class="step__note">Aucun engagement avant validation du devis · Réponse en moins de 24h</em>
+
+    <!-- CTA inline #4 -->
+    <div class="section-cta reveal" style="margin-top: 32px;">
+      <a href="https://kinoo-traiteur.vercel.app/sur-mesure" class="btn btn--primary btn--primary--lg">
+        Démarrer maintenant
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 6. CTA FINAL -->
+<section class="cta-final" id="cta-final">
+  <div class="cta-final__inner">
+    <h2 class="cta-final__title">
+      Votre événement<br>mérite d'être <em>mémorable</em>.
+    </h2>
+    <p class="cta-final__sub">Recevez votre devis personnalisé sous 24h.</p>
+    <a href="https://kinoo-traiteur.vercel.app/sur-mesure" class="btn btn--cream">
+      Composer mon menu
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+    </a>
+    <span class="cta-final__note">Sans engagement · Réponse en moins de 24h</span>
+  </div>
+</section>
+
+<!-- 7. FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="footer__grid">
+    <div>
+      <div class="footer__brand">KINOO</div>
+      <p class="footer__baseline">
+        Le sur-mesure événementiel.<br>
+        Pour les moments dont on se souvient.
+      </p>
+    </div>
+
+    <div>
+      <div class="footer__heading">Naviguer</div>
+      <ul class="footer__links">
+        <li><a href="https://kinoo-traiteur.vercel.app/sur-mesure" class="footer__link">Sur-mesure</a></li>
+        <li><a href="https://kinoo-traiteur.vercel.app/contact" class="footer__link">Contact</a></li>
+        <li><a href="https://kinoo-traiteur.vercel.app/mentions" class="footer__link">Mentions légales</a></li>
+        <li><a href="https://kinoo-traiteur.vercel.app/catalogue" class="footer__link footer__link--discreet">Voir le catalogue de plats</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer__heading">Écrire</div>
+      <a href="mailto:kinoo.traiteur@hotmail.com" class="footer__contact">kinoo.traiteur@hotmail.com</a>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <span>© <span id="year">2026</span> KINOO Traiteur</span>
+    <span>Composer · Orchestrer · Souvenir</span>
+  </div>
+</footer>
+
+<!-- BARRE CTA STICKY MOBILE -->
+<div class="mobile-cta" id="mobile-cta" role="region" aria-label="Demander un devis">
+  <div class="mobile-cta__text">
+    <strong>Devis sous 24h</strong>
+    Sans engagement
+  </div>
+  <a href="https://kinoo-traiteur.vercel.app/sur-mesure" class="mobile-cta__btn">
+    Demander
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 5 7 7-7 7"/></svg>
+  </a>
+</div>
+
+<script>
+/* Sticky nav */
+(function () {
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 24) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* Reveal on scroll */
+(function () {
+  const items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    items.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+  items.forEach(el => io.observe(el));
+})();
+
+/* Stagger chips */
+(function () {
+  const chipsContainer = document.getElementById('chips');
+  if (!chipsContainer) return;
+  const chips = chipsContainer.querySelectorAll('.chip');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        chips.forEach((chip, i) => {
+          setTimeout(() => chip.classList.add('is-visible'), 120 * i);
+        });
+        io.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+  io.observe(chipsContainer);
+})();
+
+/* Sticky mobile CTA — apparaît après le hero, disparaît sur le CTA final */
+(function () {
+  const mobileCta = document.getElementById('mobile-cta');
+  const hero = document.querySelector('.hero');
+  const ctaFinal = document.getElementById('cta-final');
+  if (!mobileCta || !hero || !ctaFinal) return;
+
+  /* Affiche uniquement sur mobile */
+  if (window.innerWidth >= 768) return;
+
+  document.body.classList.add('has-mobile-cta');
+
+  let heroOut = false;
+  let ctaFinalIn = false;
+
+  const update = () => {
+    if (heroOut && !ctaFinalIn) mobileCta.classList.add('is-visible');
+    else mobileCta.classList.remove('is-visible');
+  };
+
+  new IntersectionObserver(([e]) => {
+    heroOut = !e.isIntersecting;
+    update();
+  }, { threshold: 0 }).observe(hero);
+
+  new IntersectionObserver(([e]) => {
+    ctaFinalIn = e.isIntersecting;
+    update();
+  }, { threshold: 0.15 }).observe(ctaFinal);
+})();
+
+/* Year */
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
